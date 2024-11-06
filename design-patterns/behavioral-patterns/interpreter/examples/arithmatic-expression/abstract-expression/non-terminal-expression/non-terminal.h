@@ -22,7 +22,7 @@ class NonTerminalExpression: public AbstractExpression {
     string rule;
 public:
     NonTerminalExpression(AbstractExpression *l, AbstractExpression *r, string input) { leftExpression = l, rightExpression = r; rule = input; }
-    ~NonTerminalExpression() { delete leftExpression, rightExpression; }
+    ~NonTerminalExpression() { delete leftExpression; delete rightExpression; }
 
     virtual string print() {
         string left = leftExpression->print();
@@ -41,9 +41,9 @@ class AdditionExpression: public NonTerminalExpression {
 public:
     AdditionExpression(AbstractExpression *l, AbstractExpression *r): NonTerminalExpression(l, r, "+") {}
     
-    virtual int interpret() {
-        int left = getLeftExpression()->interpret();
-        int right = getRightExpression()->interpret();
+    virtual int interpret(Context *c) {
+        int left = getLeftExpression()->interpret(c);
+        int right = getRightExpression()->interpret(c);
 
         // Addition
         return left + right;
@@ -56,9 +56,9 @@ class MultiplyExpression: public NonTerminalExpression {
 public:
     MultiplyExpression(AbstractExpression *l, AbstractExpression *r): NonTerminalExpression(l, r, "*") {}
     
-    virtual int interpret() {
-        int left = getLeftExpression()->interpret();
-        int right = getRightExpression()->interpret();
+    virtual int interpret(Context *c) {
+        int left = getLeftExpression()->interpret(c);
+        int right = getRightExpression()->interpret(c);
 
         // Multipy
         return left * right;
@@ -71,9 +71,9 @@ class SubtractExpression: public NonTerminalExpression {
 public:
     SubtractExpression(AbstractExpression *l, AbstractExpression *r): NonTerminalExpression(l, r, "-") {}
     
-    virtual int interpret() {
-        int left = getLeftExpression()->interpret();
-        int right = getRightExpression()->interpret();
+    virtual int interpret(Context *c) {
+        int left = getLeftExpression()->interpret(c);
+        int right = getRightExpression()->interpret(c);
 
         // Multipy
         return left - right;

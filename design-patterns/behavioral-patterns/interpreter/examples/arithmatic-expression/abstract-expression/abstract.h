@@ -4,6 +4,7 @@
 
 
 #include <iostream>
+#include "../context/context.h"
 using namespace std;
 
 
@@ -16,7 +17,7 @@ class AbstractExpression {
 public:
     virtual ~AbstractExpression() {}
 
-    virtual int interpret() = 0;
+    virtual int interpret(Context *c) = 0;
     virtual string print() = 0;
 };
 

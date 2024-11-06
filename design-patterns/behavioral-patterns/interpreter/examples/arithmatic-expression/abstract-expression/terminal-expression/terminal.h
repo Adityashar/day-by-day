@@ -15,32 +15,16 @@ Terminal Expression
 - A Leaf in the expression tree
 */
 class TerminalExpression: public AbstractExpression {
-    int value;
-    
-    string stringify(int val) {
-        string ret = "";
-        
-        if (val == 0)
-            return "0";
-
-        while (val > 0) {
-            ret += '0' + (val % 10);
-            val /= 10;
-        }
-
-        reverse(ret.begin(), ret.end());
-
-        return ret;
-    }
+    string value;
 public:
-    TerminalExpression(int v) { value = v; }
+    TerminalExpression(string v) { value = v; }
 
-    virtual int interpret() {
-        return value;
+    virtual int interpret(Context *c) {
+        return c->getValue(value);
     }
 
     virtual string print() {
-        return stringify(value);
+        return value;
     }
 };
 
